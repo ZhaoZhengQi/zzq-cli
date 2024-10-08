@@ -2,6 +2,10 @@ import { input, select } from "@inquirer/prompts";
 import { clone } from "../utils/clone";
 import path from "path";
 import fs from "fs-extra";
+import { name, version } from "../../package.json";
+import { gt } from "lodash";
+import chalk from "chalk";
+import axios, { AxiosResponse } from "axios";
 export interface TemplateInfo {
   name: string; //模板名称
   downloadUrl: string; //模版下载地址
@@ -10,6 +14,7 @@ export interface TemplateInfo {
   // version: string; //模版版本
 }
 
+// 模版列表
 export const templates: Map<string, TemplateInfo> = new Map([
   [
     "Vite-Vue3-TypeScript-Template",
@@ -47,8 +52,45 @@ export const isOverwrite = async (projectName: string) => {
     ],
   });
 };
-
+// 获取npm包详情信息--npm 包提供了根据包名称查询包信息的接口--直接使用 axios 请求调用
+export const getNpmInfo = async (npmName: string) => {
+  const npmUrl = "https://registry.npmjs.org/" + npmName;
+  let res = {};
+  try {
+    res = await axios.get(npmUrl);
+  } catch (err) {
+    console.error(err as string);
+  }
+  return res;
+};
+// 获取npm包版本号
+export const getNpmLatestVersion = async (npmName: string) => {
+  // data['dist-tags'].latest 为最新版本号
+  const { data } = (await getNpmInfo(npmName)) as AxiosResponse;
+  return data["dist-tags"].latest;
+};
+// 对比版本号
+export const checkVersion = async (name: string, curVersion: string) => {
+  const latestVersion = await getNpmLatestVersion(name);
+  const need = gt(latestVersion, curVersion);
+  if (need) {
+    console.info(
+      `🔈:检测到 zzq-cli 最新版:${chalk.blueBright(
+        latestVersion
+      )} 当前版本:${chalk.blueBright(curVersion)} ~`
+    );
+    console.info(
+      `🔧:可使用 ${chalk.yellow("pnpm install zzq-cli@last")} 或 ${chalk.yellow(
+        "zzq-cli update"
+      )} 更新 ~ `
+    );
+  }
+  return need;
+};
+// 创建项目
 export async function create(projectName?: string) {
+  // 检查版本更新
+  await checkVersion(name, version);
   // 初始化模版列表
   const templateList = Array.from(templates).map(
     (item: [string, TemplateInfo]) => {
@@ -60,6 +102,7 @@ export async function create(projectName?: string) {
       };
     }
   );
+
   if (!projectName) {
     projectName = await input({
       message: "请输入项目名称",
