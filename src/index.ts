@@ -11,7 +11,7 @@ const packageJson = JSON.parse(
 const program = new Command("zzq-cli");
 
 // 查看版本
-program.version(packageJson.version, "-v, --version");
+program.version(version, "-v, --version");
 
 program
   .command("create")
