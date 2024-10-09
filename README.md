@@ -12,23 +12,23 @@ npm install zqc-cli -g
 
 ###  选择模板创建新项目
 ```bash
-zzq create 
+zzq-cli create 
 ```
 
 ###  创建指定名称并选择模板创建新项目
 ```bash
-zzq create [projectName]
+zzq-cli create [projectName]
 ```
 
 ###  更新脚手架到最新版本
 ```bash
-zzq update
+zzq-cli update
 ```
 
 ###  查看脚手架版本
 ```bash
-zzq -v 
+zzq-cli -v 
 或
-zzq --version
+zzq-cli --version
 ```
 
