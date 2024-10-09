@@ -71,6 +71,8 @@ export const getNpmLatestVersion = async (npmName: string) => {
 };
 // 对比版本号
 export const checkVersion = async (name: string, curVersion: string) => {
+  console.log("当前版本", curVersion);
+
   const latestVersion = await getNpmLatestVersion(name);
   const need = gt(latestVersion, curVersion);
   if (need) {

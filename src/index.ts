@@ -1,7 +1,7 @@
 import { Command } from "commander";
 import { version } from "../package.json";
 import { create } from "./command/create";
-const program = new Command("hhh");
+const program = new Command("zzq-cli");
 // 查看版本
 program.version(version, "-v, --version");
 
