@@ -15,7 +15,7 @@
     "name": "赵政锜"
   },
   "bin": {
-    "zzq": "bin/zzq-cli.js"
+    "zzq-cli": "bin/index.js"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
