@@ -1,6 +1,7 @@
 import { simpleGit, SimpleGit, SimpleGitOptions } from "simple-git";
 import createLogger from "progress-estimator";
 import chalk from "chalk";
+
 const optionsData: Partial<SimpleGitOptions> = {
   baseDir: process.cwd(), // 当前工作目录
   binary: "git", // 指定git二进制文件路径

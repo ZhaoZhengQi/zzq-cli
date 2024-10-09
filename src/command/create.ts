@@ -6,6 +6,13 @@ import { name, version } from "../../package.json";
 import { gt } from "lodash";
 import chalk from "chalk";
 import axios, { AxiosResponse } from "axios";
+import { readFileSync } from "fs";
+import { join } from "path";
+
+// 动态读取 package.json
+const packageJson = JSON.parse(
+  readFileSync(join(__dirname, "../package.json"), "utf-8")
+);
 export interface TemplateInfo {
   name: string; //模板名称
   downloadUrl: string; //模版下载地址
@@ -91,7 +98,7 @@ export const checkVersion = async (name: string, curVersion: string) => {
 // 创建项目
 export async function create(projectName?: string) {
   // 检查版本更新
-  await checkVersion(name, version);
+  await checkVersion(packageJson.name, packageJson.version);
   // 初始化模版列表
   const templateList = Array.from(templates).map(
     (item: [string, TemplateInfo]) => {
