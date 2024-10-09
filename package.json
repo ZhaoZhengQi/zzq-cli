@@ -1,6 +1,6 @@
 {
   "name": "zzq-cli",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "description": "zzq-cli脚手架",
   "main": "dist/index.js",
   "keywords": [
