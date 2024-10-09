@@ -71,20 +71,19 @@ export const getNpmLatestVersion = async (npmName: string) => {
 };
 // 对比版本号
 export const checkVersion = async (name: string, curVersion: string) => {
-  console.log("当前版本", curVersion);
-
   const latestVersion = await getNpmLatestVersion(name);
   const need = gt(latestVersion, curVersion);
   if (need) {
     console.info(
-      `🔈:检测到 zzq-cli 最新版:${chalk.blueBright(
+      `📢: 检测到 zzq-cli 最新版:${chalk.blueBright(
         latestVersion
       )} 当前版本:${chalk.blueBright(curVersion)} ~`
     );
+    console.log();
     console.info(
-      `🔧:可使用 ${chalk.yellow("pnpm install zzq-cli@last")} 或 ${chalk.yellow(
-        "zzq-cli update"
-      )} 更新 ~ `
+      `🔧: 可使用 ${chalk.yellow(
+        "pnpm install zzq-cli@last"
+      )} 或 ${chalk.yellow("zzq-cli update")} 更新 ~ `
     );
   }
   return need;
