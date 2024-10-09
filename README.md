@@ -1,5 +1,5 @@
 # zzq-cli
-![Npm 版本](https://img.shields.io/badge/zzq-cli_v0.0.2-blue)
+![Npm 版本](https://img.shields.io/badge/zzq-cli_v0.0.17-blue)
 ## 📖 简介
 用于快速创建前端工程的命令行工具
 ## 📚 模板
